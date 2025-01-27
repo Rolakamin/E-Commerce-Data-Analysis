@@ -5,6 +5,9 @@ A comprehensive project to clean and analyze E-commerce transactional data using
 
 ### Data Sources
 The dataset used in this project was obtained from the DataDNA dataset challenges provided by Onyx Data. It consists of a single table with 8 columns and 541,909 rows. The dataset contains transactional data spanning from 2010 to 2011, tracking purchases made by customers.
+You can access the dataset by downloading it from this link.
+
+
 
 ### Dataset Description
 The table includes the following fields:
