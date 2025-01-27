@@ -21,10 +21,11 @@ The table includes the following fields:
 
 ## Data Cleaning
 **Step 1: Removal of Duplicates**
-**Issue**
+
 The E-commerce dataset contained potential duplicate records, which could impact the accuracy and reliability of the analysis. These duplicates needed to be identified and removed to ensure data integrity.
 
 **Approach**
+
 To address this issue:
 
 1. **Identifying Duplicates:**
@@ -110,6 +111,8 @@ HAVING COUNT(*) > 1;
 The dataset was successfully cleaned by removing all duplicate rows, reducing the total row count from 541,909 to 531,223.
 
 This step ensures that the dataset is now free of redundancy and ready for further analysis.
+
+**Step 2: Handle Missing or Blank Values**
 
 
 
