@@ -138,6 +138,18 @@ FROM Ecommerce
 WHERE CustomerID IS NULL;
 ```
 
+**Results**
+
+- Initial Row Count: 541,909
+- Row Count After Removing Duplicates: 531,223
+- Duplicate Rows Removed: 10,686
+- Missing CustomerID Count (After Removing Duplicates): 134,542
+  
+**Interpretation:**
+134,542 rows had missing CustomerID values. This could be due to transactions where customers did not provide an ID, incomplete records, or data entry errors.
+
+To ensure accurate customer-based analysis, these missing values will be replaced with 'Unknown'
+
 **Replace NULL CustomerID with 'Unknown':**
 
 ```sql
