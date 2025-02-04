@@ -119,6 +119,34 @@ This step ensures that the dataset is now free of redundancy and ready for furth
 
 **Step 2: Handle Missing or Blank Values**
 
+**a) CustomerID**
+
+Missing values in the CustomerID column could represent data entry errors or incomplete data. These blanks need to be addressed to ensure that customer-based analysis is accurate.
+
+**Approach:**
+
+- The missing CustomerID values were first identified using a query.
+- Missing values were replaced with 'Unknown' to indicate non-specific customer data.
+  
+**Queries:**
+
+**Check for Missing CustomerID Values:**
+
+```sql
+SELECT COUNT(*) AS MissingCustomerIDs
+FROM Ecommerce
+WHERE CustomerID IS NULL;
+```
+
+**Replace NULL CustomerID with 'Unknown':**
+
+```sql
+UPDATE Ecommerce
+SET CustomerID = 'Unknown'
+WHERE CustomerID IS NULL;
+```
+
+
 
 
 
