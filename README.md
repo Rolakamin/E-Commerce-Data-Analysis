@@ -170,6 +170,8 @@ FROM Ecommerce
 WHERE Description LIKE '%?%' OR Description = 'Blanks';
 ```
 
+This query identified **24 unique descriptions** that were flagged as problematic.
+
 Thereafter, all identified invalid or missing descriptions were replaced with 'Unknown' to maintain consistency in the dataset.
 
 ```sql
@@ -177,6 +179,44 @@ UPDATE Ecommerce
 SET Description = 'Unknown'
 WHERE Description LIKE '%?%' OR Description = 'Blanks';
 ```
+
+After running this update query, **82 rows** were affected, meaning these descriptions were successfully replaced. To confirm the update, the following query was executed:
+
+```sql
+SELECT *  
+FROM Ecommerce
+WHERE Description = 'Unknown';
+```
+
+This returned **82 rows**, verifying that all invalid or missing descriptions were successfully updated.
+
+**c) Country**
+
+The Country column contained values labeled as **'Unspecified'**, which needed to be addressed for consistency in the dataset. There were no **NULL** values in this column, but some records had 'Unspecified' as the country value.
+
+To identify how many rows were affected, the following query was used:
+
+```sql
+SELECT COUNT(*) AS UnspecifiedCountries
+FROM Ecommerce
+WHERE Country = 'Unspecified';
+```
+**Result**: **433 rows** were found with the 'Unspecified' value.
+
+These rows were then updated with the value **'Unknown'** to maintain consistency across the dataset.
+
+```sql
+UPDATE Ecommerce
+SET Country = 'Unknown'
+WHERE Country = 'Unspecified';
+```
+
+
+
+
+
+
+
 
 
 
