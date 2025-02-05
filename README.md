@@ -158,6 +158,29 @@ SET CustomerID = 'Unknown'
 WHERE CustomerID IS NULL;
 ```
 
+**b) Description**
+
+The Description column contained missing, invalid, or placeholder values such as '???', '?', or 'Blanks', which needed to be addressed to ensure data consistency and accuracy in analysis.
+
+To handle this, a query was used to detect descriptions that were either missing or contained placeholder values.
+
+```sql
+SELECT DISTINCT Description
+FROM Ecommerce
+WHERE Description LIKE '%?%' OR Description = 'Blanks';
+```
+
+Thereafter, all identified invalid or missing descriptions were replaced with 'Unknown' to maintain consistency in the dataset.
+
+```sql
+UPDATE Ecommerce 
+SET Description = 'Unknown'
+WHERE Description LIKE '%?%' OR Description = 'Blanks';
+```
+
+
+
+
 
 
 
