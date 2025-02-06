@@ -212,7 +212,9 @@ WHERE Country = 'Unspecified';
 ```
 
 **Step 3: Correcting Inconsistent Data**
+
 Inconsistent data entries can result from errors in data collection or entry. In this dataset, negative values were found in the Quantity and UnitPrice columns, which indicatedmk incorrect data.
+
 To correct this:
 
 - **Negative quantities** were replaced with zero to prevent them from affecting calculations.
