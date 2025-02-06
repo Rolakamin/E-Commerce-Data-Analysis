@@ -213,7 +213,7 @@ WHERE Country = 'Unspecified';
 
 **Step 3: Correcting Inconsistent Data**
 
-Inconsistent data entries can result from errors in data collection or entry. In this dataset, negative values were found in the Quantity and UnitPrice columns, which indicatedmk incorrect data.
+Inconsistent data entries can result from errors in data collection or entry. In this dataset, negative values were found in the Quantity and UnitPrice columns, which indicated incorrect data.
 
 To correct this:
 
@@ -232,6 +232,15 @@ After updating the dataset to correct negative values in the Quantity column, I 
 SELECT * FROM Ecommerce WHERE Quantity < 0;
 ```
 This returned **0 rows**, confirming that all **negative quantities** were successfully updated.
+
+- **Negative unit prices** were also replaced with zero, as prices should always be positive
+  
+```sql
+UPDATE Ecommerce
+SET UnitPrice = 0
+WHERE UnitPrice < 0;
+```
+
 
 
 
