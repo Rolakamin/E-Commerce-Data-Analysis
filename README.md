@@ -225,8 +225,7 @@ SET Quantity = 0
 WHERE Quantity < 0;
 ```
 
-After updating the dataset to correct negative values in the Quantity column, I verified that no negative values remained using the query:
-
+To confirm the update, I verified that all negative values were corrected by running the following query:
  ```sql
 SELECT * 
 FROM Ecommerce
@@ -242,8 +241,7 @@ SET UnitPrice = 0
 WHERE UnitPrice < 0;
 ```
 
-After updating the dataset to correct negative values in the UnitPrice column, I verified that no negative values remained using the query:
-
+To confirm this update, I ran the following query:
  ```sql
 SELECT * 
 FROM Ecommerce
