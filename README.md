@@ -29,7 +29,7 @@ The table includes the following fields:
 
 The E-commerce dataset contained potential duplicate records, which could impact the accuracy and reliability of the analysis. These duplicates needed to be identified and removed to ensure data integrity.
 
-**Approach**
+**Approach:**
 
 To address this issue:
 
@@ -120,13 +120,12 @@ This step ensures that the dataset is now free of redundancy and ready for furth
 **Step 2: Handle Missing or Blank Values**
 
 **a) CustomerID**
-
-Missing values in the CustomerID column could represent data entry errors or incomplete data. These blanks need to be addressed to ensure that customer-based analysis is accurate.
+The CustomerID column contained missing values, which could indicate incomplete records or data entry errors. Addressing these missing values ensures accurate customer-based analysis.
 
 **Approach:**
 
 - The missing CustomerID values were first identified using a query.
-- Missing values were replaced with 'Unknown' to indicate non-specific customer data.
+- Missing values were replaced with 'Unknown' to indicate non-specific customer data and to maintain consistency
   
 **Queries:**
 
@@ -148,9 +147,7 @@ WHERE CustomerID IS NULL;
 **Interpretation:**
 134,542 rows had missing CustomerID values. This could be due to transactions where customers did not provide an ID, incomplete records, or data entry errors.
 
-To ensure accurate customer-based analysis, these missing values will be replaced with 'Unknown'
-
-**Replace NULL CustomerID with 'Unknown':**
+To ensure accurate customer-based analysis, these missing values were replaced with 'Unknown' using the following update query:
 
 ```sql
 UPDATE Ecommerce
@@ -159,51 +156,59 @@ WHERE CustomerID IS NULL;
 ```
 
 **b) Description**
+The Description column contained missing, invalid, or unclear values, such as '???', '?', 'Blanks', and NULL values. Additionally, there were inconsistent formatting issues, extra spaces, and vague descriptions that needed to be addressed to ensure data consistency and improve the accuracy of analysis.
 
-The Description column contained missing, invalid, or placeholder values such as '???', '?', or 'Blanks', which needed to be addressed to ensure data consistency and accuracy in analysis.
-
-To handle this, a query was used to detect descriptions that were either missing or contained placeholder values.
-
-```sql
-SELECT DISTINCT Description
-FROM Ecommerce
-WHERE Description LIKE '%?%' OR Description = 'Blanks';
-```
-
-This query identified **24 unique descriptions** that were flagged as problematic.
-
-Thereafter, all identified invalid or missing descriptions were replaced with 'Unknown' to maintain consistency in the dataset.
+1. Identifying and Handling Missing or Placeholder Values
+To detect missing or placeholder descriptions, a query was executed to identify values such as '???', '?', 'Blanks', and NULL entries. These were replaced with 'UNKNOWN' to maintain uniformity and avoid ambiguity.
 
 ```sql
 UPDATE Ecommerce 
-SET Description = 'Unknown'
-WHERE Description LIKE '%?%' OR Description = 'Blanks';
+SET Description = 'UNKNOWN' 
+WHERE Description LIKE '%?%' OR Description = 'Blanks' OR Description IS NULL;
 ```
 
-After running this update query, **82 rows** were affected, meaning these descriptions were successfully replaced. To confirm the update, the following query was executed:
+2. Standardizing and Formatting Descriptions
+To ensure consistency in the dataset, descriptions were standardized by:
+
+- Removing extra spaces at the beginning and end of each description
+- Converting all descriptions to uppercase for uniform formatting across records.
 
 ```sql
-SELECT *  
-FROM Ecommerce
-WHERE Description = 'Unknown';
+UPDATE Ecommerce 
+SET Description = UPPER(LTRIM(RTRIM(Description)));
 ```
 
-This returned **82 rows**, verifying that all invalid or missing descriptions were successfully updated.
+3. Replacing Vague or Irrelevant Descriptions
+Certain descriptions related to damaged items, test entries, unclear values, and system-generated placeholders were identified and replaced with 'UNKNOWN' for clarity. Examples include 'LOST', 'DAMAGED STOCK', 'TEST', 'AMAZON ADJUSTMENT', and similar terms
+
+```sql
+UPDATE Ecommerce  
+SET Description = 'UNKNOWN'  
+WHERE Description IN (  
+    'MIXED UP', 'AMAZON ADJUSTMENT', 'MIA', 'AMAZON ADJUST', 'LOST', 'CRUSHED',  
+    'TEST', 'CHECK', 'SOLD AS SET ON DOTCOM AND AMAZON', 'COUNTED', 'CRACKED',  
+    'WATER DAMAGED', 'ADJUST', 'WET DAMAGED', 'FAULTY', 'RETURNED', 'DOTCOM',  
+    'DAMAGED STOCK', 'BREAKAGES', 'BROKEN', 'AMAZON FEE', 'SAMPLES', 'SOLD AS 1',  
+    'DAGAMED', 'DAMAGES', 'LOST IN SPACE', 'WET', 'DISCOUNT', 'CARRIAGE',  
+    'AMAZON SOLD SETS', 'POSTAGE', 'SHOWROOM', 'MOULDY', 'EBAY', 'AMAZON',  
+    'FOUND BOX', 'AMAZON SALES', 'WET RUSTY', 'DAMAGED', 'MISSING', '20713',  
+    'FBA', 'MAILOUT', 'MANUAL', 'WET/RUSTY', 'SMASHED', 'DISPLAY', 'FOUND'  
+);
+```
 
 **c) Country**
 
-The Country column contained values labeled as **'Unspecified'**, which needed to be addressed for consistency in the dataset. There were no **NULL** values in this column, but some records had 'Unspecified' as the country value.
+The Country column contained values labeled as 'Unspecified', which needed to be addressed for consistency in the dataset. There were no NULL values in this column, but some records had 'Unspecified' as the country value.
 
-To identify how many rows were affected, the following query was used:
+To identify affected rows, the following query was used:
 
 ```sql
-SELECT COUNT(*) AS UnspecifiedCountries
+SELECT COUNT(*) 
 FROM Ecommerce
 WHERE Country = 'Unspecified';
 ```
-**Result**: **433 rows** were found with the 'Unspecified' value.
 
-These rows were then updated with the value **'Unknown'** to maintain consistency across the dataset.
+To maintain consistency, all occurrences of 'Unspecified' were replaced with 'Unknown' using the following update query:
 
 ```sql
 UPDATE Ecommerce
@@ -213,11 +218,16 @@ WHERE Country = 'Unspecified';
 
 **Step 3: Correcting Inconsistent Data**
 
-Inconsistent data entries can result from errors in data collection or entry. In this dataset, negative values were found in the Quantity and UnitPrice columns, which indicated incorrect data.
+Inconsistent data can arise from errors in data collection or entry. In this dataset, negative values were found in the Quantity and UnitPrice columns, which indicated incorrect records.
 
-To correct this:
+**Approach:**
 
-- **Negative quantities** were replaced with zero to prevent them from affecting calculations.
+- Negative quantities were replaced with zero to ensure accurate calculations.
+- Negative unit prices were also replaced with zero, as prices should always be positive.
+  
+**Queries and Updates:**
+
+**1. Replacing Negative Quantities with Zero**
   
 ```sql
 UPDATE Ecommerce
@@ -225,29 +235,34 @@ SET Quantity = 0
 WHERE Quantity < 0;
 ```
 
-To confirm the update, I verified that all negative values were corrected by running the following query:
+**Verification:**
+To confirm that all negative values were corrected:
+
  ```sql
 SELECT * 
 FROM Ecommerce
 WHERE Quantity < 0;
 ```
-This returned **0 rows**, confirming that all **negative quantities** were successfully updated.
+**Result: 0 rows** (indicating all negative quantities were successfully updated).
 
-- **Negative unit prices** were also replaced with zero, as prices should always be positive
-  
+**2. Replacing Negative Unit Prices with Zero**
+ 
 ```sql
 UPDATE Ecommerce
 SET UnitPrice = 0
 WHERE UnitPrice < 0;
 ```
 
-To confirm this update, I ran the following query:
+**Verification:**
+
+To ensure that no negative unit prices remain:
+
  ```sql
 SELECT * 
 FROM Ecommerce
 WHERE UnitPrice < 0;
 ```
-This returned **0 rows**, confirming that all **negative UnitPrices** were successfully updated
+**Result: 0 rows** (confirming all negative unit prices were successfully updated).
 
 
 
