@@ -1,31 +1,69 @@
 # E-Commerce Data Analysis
 A comprehensive project to clean and analyze E-commerce transactional data using SQL (Microsoft SQL Server Management Studio - SSMS), addressing key business questions and deriving actionable insights.
 
+## Project Overview
+
+### Objectives
+
+The goal of this project is to analyze an E-commerce dataset to uncover insights related to sales performance, customer behavior, and; product profitability. This will help improve business decision-making in areas such as inventory management, marketing strategies, and customer segmentation.
+
+## Business Problems & Key Questions
+
+To achieve the above objective, the analysis will focus on answering these key business questions:
+
+**1️. Sales Performance Analysis**
+
+- Which products generate the most revenue?
+- Which countries contribute the highest revenue?
+- What is the average order value (AOV)?
+
+**2. Customer Segmentation**
+
+- Who are the top customers by total spending?
+- How frequently do customers make purchases?
+- Which customers return products the most?
+
+**3. Product Performance Analysis**
+
+- What are the best-selling products?
+- Which products are the most profitable?
+- What are the top 5 most expensive products?
+
+ **4. Time Series Analysis**
+
+- How does revenue change over time (monthly, quarterly, yearly)?
+- Which time of day generates the most sales?
+- What is the month-over-month revenue growth?
+
 ## Dataset Overview
 
-### Data Sources
-The dataset used in this project was obtained from the DataDNA dataset challenges provided by Onyx Data. It consists of a single table with 8 columns and 541,909 rows. The dataset contains transactional data spanning from 2010 to 2011, tracking purchases made by customers.
+### Data Source
+The dataset was obtained from the DataDNA dataset challenges(Onyx Data) and contains 541,909 rows and 8 columns, tracking transactions from 2010 to 2011. 
 
 To access the dataset, click [**here**](https://github.com/Rolakamin/E-Commerce-Data-Analysis/blob/main/Ecommerce%20Business.zip).
 
-
-
-
 ### Dataset Description
-The table includes the following fields:
+
 - InvoiceNo: Unique identifier for each transaction.
-  
-  **Note**: For this analysis, InvoiceNo was not treated as a unique identifier because each InvoiceNo represents multiple transactions. To resolve this, a TransactionID column was created to serve as the primary key.
-- StockCode: Represents each product.
-- Description: Describes the product.
+- StockCode: Product identifier
+- Description: Name of the product. 
 - Quantity: Number of items purchased.
 - UnitPrice: Price per unit of the product.
 - InvoiceDate: Date and time of the transaction.
-- CustomerID: Identifier for each customer.
+- CustomerID: Unique identifier for each customer.
 - Country: Country where the purchase was made
+  
+**Note**:
+  
+For this analysis, InvoiceNo was not unique, that is, InvoiceNo was not treated as a unique identifier because each InvoiceNo represents multiple transactions(multiple rows can belong to the same transaction). To resolve this, a TransactionID column was created to serve as the primary key.
 
 ## Data Cleaning
+
+Since the dataset contains errors, inconsistencies, and missing values, data cleaning techniques were applied using SQL to ensure accuracy.
+
 **Step 1: Removal of Duplicates**
+
+Some transactions were duplicated,which could impact the accuracy and reliability of the analysis.
 
 The E-commerce dataset contained potential duplicate records, which could impact the accuracy and reliability of the analysis. These duplicates needed to be identified and removed to ensure data integrity.
 
@@ -87,8 +125,9 @@ WHERE RowNumber > 1;
 **Results**
 
 - Initial Row Count: 541,909
-- Row Count After Removing Duplicates: 531,223
 - Duplicate Rows Removed: 10,686
+- Final Row Count After Removing Duplicates: 531,223
+
   
 **Verification**
 
@@ -117,15 +156,15 @@ The dataset was successfully cleaned by removing all duplicate rows, reducing th
 
 This step ensures that the dataset is now free of redundancy and ready for further analysis.
 
-**Step 2: Handle Missing or Blank Values**
+**Step 2: Handling Missing Values**
 
 **a) CustomerID**
 The CustomerID column contained missing values, which could indicate incomplete records or data entry errors. Addressing these missing values ensures accurate customer-based analysis.
 
 **Approach:**
 
-- The missing CustomerID values were first identified using a query.
-- Missing values were replaced with 'Unknown' to indicate non-specific customer data and to maintain consistency
+- The missing CustomerID (Nullvalues) were first identified using a query.
+- NULLs were replaced with **'Unknown'** to indicate non-specific customer data and to maintain consistency
   
 **Queries:**
 
@@ -137,17 +176,14 @@ FROM Ecommerce
 WHERE CustomerID IS NULL;
 ```
 
-**Results**
-
-- Initial Row Count: 541,909
-- Row Count After Removing Duplicates: 531,223
-- Duplicate Rows Removed: 10,686
+**Result:**
 - Missing CustomerID Count (After Removing Duplicates): 134,542
   
 **Interpretation:**
+
 134,542 rows had missing CustomerID values. This could be due to transactions where customers did not provide an ID, incomplete records, or data entry errors.
 
-To ensure accurate customer-based analysis, these missing values were replaced with 'Unknown' using the following update query:
+To ensure accurate customer-based analysis, these missing values were replaced with 'Unknown' using the following query:
 
 ```sql
 UPDATE Ecommerce
@@ -263,6 +299,8 @@ FROM Ecommerce
 WHERE UnitPrice < 0;
 ```
 **Result: 0 rows** (confirming all negative unit prices were successfully updated).
+
+##
 
 
 
