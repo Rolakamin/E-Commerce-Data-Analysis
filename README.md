@@ -300,8 +300,30 @@ WHERE UnitPrice < 0;
 ```
 **Result: 0 rows** (confirming all negative unit prices were successfully updated).
 
-##
+## Data Analysis & SQL Queries
 
+1. Total Sales by Product
+   
+```sql
+SELECT 
+    StockCode, 
+    Description, 
+    SUM(Quantity * UnitPrice) AS TotalSales
+FROM Ecommerce
+GROUP BY StockCode, Description
+ORDER BY TotalSales DESC;
+```
+
+2. Total Revenue by Country
+   
+```sql
+SELECT 
+    Country, 
+    SUM(Quantity * UnitPrice) AS TotalRevenue
+FROM Ecommerce
+GROUP BY Country
+ORDER BY TotalRevenue DESC;
+```
 
 
 
