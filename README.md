@@ -342,6 +342,7 @@ WHERE CustomerID <> 'Unknown'
 GROUP BY CustomerID
 ORDER BY AvgOrderValue DESC;
 ```
+**Customer 16446 had the highest Average Order Value (AOV) in the dataset, meaning they spent significantly more per order than any other customer**
 
 
 
