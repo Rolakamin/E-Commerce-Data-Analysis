@@ -302,6 +302,10 @@ WHERE UnitPrice < 0;
 
 ## Data Analysis & SQL Queries
 
+### Sales Performance Analysis
+
+**Objective:** This analysis aims to understand how products are selling across different countries and customers based on transactional data.
+
 1. Total Sales by Product
    
 ```sql
@@ -325,7 +329,19 @@ GROUP BY Country
 ORDER BY TotalRevenue DESC;
 ```
 
-
+3. Average Order Value (AOV)
+   
+ ```sql  
+SELECT 
+    CustomerID, 
+    COUNT(DISTINCT InvoiceNo) AS TotalOrders,
+    SUM(Quantity * UnitPrice) AS TotalSpending,
+    SUM(Quantity * UnitPrice) / COUNT(DISTINCT InvoiceNo) AS AvgOrderValue
+FROM Ecommerce
+WHERE CustomerID <> 'Unknown'
+GROUP BY CustomerID
+ORDER BY AvgOrderValue DESC;
+```
 
 
 
