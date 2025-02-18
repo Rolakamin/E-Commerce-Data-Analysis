@@ -19,9 +19,10 @@ To achieve the above objective, the analysis will focus on answering these key b
 
 **2. Customer Segmentation**
 
-- Who are the top customers by total spending?
-- How frequently do customers make purchases?
-- Which customers return products the most?
+- Which customers have the highest total spending? 
+- Who are the top 5 highest-spending customers? 
+- Which customers make purchases most frequently? 
+- How can we categorize customers based on their spending levels?
 
 **3. Product Performance Analysis**
 
@@ -343,6 +344,72 @@ GROUP BY CustomerID
 ORDER BY AvgOrderValue DESC;
 ```
 **Customer 16446 had the highest Average Order Value (AOV) in the dataset, meaning they spent significantly more per order than any other customer**
+
+### Customer Segmentation
+
+**Objective:** Identify and analyze customer purchasing behavior to classify customers based on their total spending, purchase frequency, and overall value to the business.
+
+4. Which customers have the highest total spending?
+   
+```sql 
+SELECT 
+    CustomerID, 
+    SUM(Quantity * UnitPrice) AS TotalSpending
+FROM Ecommerce
+WHERE CustomerID <> 'Unknown'
+GROUP BY CustomerID
+ORDER BY TotalSpending DESC;
+```
+
+5. Who are the top 5 highest-spending customers?
+
+```sql 
+WITH CustomerRevenue AS (
+    SELECT 
+        CustomerID, 
+        SUM(Quantity * UnitPrice) AS TotalRevenue,
+        RANK() OVER (ORDER BY SUM(Quantity * UnitPrice) DESC) AS Rank
+    FROM Ecommerce
+    WHERE CustomerID <> 'Unknown'
+    GROUP BY CustomerID
+)
+SELECT *
+FROM CustomerRevenue
+WHERE Rank <= 5;
+```
+
+6. Which customers make purchases most frequently?
+
+```sql 
+SELECT 
+    CustomerID, 
+    COUNT(DISTINCT InvoiceNo) AS PurchaseFrequency
+FROM Ecommerce
+WHERE CustomerID <> 'Unknown'
+GROUP BY CustomerID
+ORDER BY PurchaseFrequency DESC;
+```
+
+7. How can we categorize customers based on their spending levels?
+
+SELECT 
+    CustomerID, 
+    SUM(Quantity * UnitPrice) AS TotalSpending,
+    CASE 
+        WHEN SUM(Quantity * UnitPrice) > 10000 THEN 'High-Value Customer'
+        WHEN SUM(Quantity * UnitPrice) BETWEEN 1000 AND 10000 THEN 'Medium Spender'
+        ELSE 'Low-Value Customer'
+    END AS CustomerSegment
+FROM Ecommerce
+WHERE CustomerID <> 'Unknown'
+GROUP BY CustomerID
+ORDER BY TotalSpending DESC;
+
+
+
+
+
+
 
 
 
