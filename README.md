@@ -5,7 +5,7 @@ A comprehensive project to clean and analyze E-commerce transactional data using
 
 ### Objectives
 
-The goal of this project is to analyze an E-commerce dataset to uncover insights related to sales performance, customer behavior, and; product profitability. This will help improve business decision-making in areas such as inventory management, marketing strategies, and customer segmentation.
+The goal of this project is to analyze an E-commerce dataset to uncover insights related to sales performance, customer behavior, and product profitability. This will help improve business decision-making in areas such as inventory management, marketing strategies, and customer segmentation.
 
 ## Business Problems & Key Questions
 
