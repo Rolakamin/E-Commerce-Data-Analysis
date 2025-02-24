@@ -197,6 +197,7 @@ WHERE CustomerID IS NULL;
 ```
 
 **b) Description**
+
 The Description column contained missing, invalid, or unclear values, such as '???', '?', 'Blanks', and NULL values. Additionally, there were inconsistent formatting issues, extra spaces, and vague descriptions that needed to be addressed to ensure data consistency and improve the accuracy of analysis.
 
 1. Identifying and Handling Missing or Placeholder Values
