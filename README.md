@@ -219,6 +219,28 @@ WHERE Description IS NULL
    OR Description = 'Blanks';
 ```
 
+2. Removing Extra Spaces and Hidden Characters
+   
+Some descriptions had leading/trailing spaces and non-printable characters (e.g., CHAR(160), a non-breaking space). They were removed to ensure consistency.
+
+```sql
+-- Query to Trim spaces and Remove Hidden Characters
+UPDATE Ecommerce
+SET Description = TRIM(REPLACE(Description, CHAR(160), ''));
+```
+
+3. Identifying and Grouping Irrelevant Descriptions
+   
+To find descriptions that were too vague or unhelpful, occurences of each unique description were counted.
+
+```sql
+-- Query to Count Unique Descriptions
+SELECT Description, COUNT(*) 
+FROM Ecommerce
+GROUP BY Description
+ORDER BY COUNT(*) DESC;
+```
+
 2. Standardizing and Formatting Descriptions
 To ensure consistency in the dataset, descriptions were standardized by:
 
