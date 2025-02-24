@@ -11,7 +11,7 @@ The goal of this project is to analyze an E-commerce dataset to uncover insights
 
 To achieve the above objective, the analysis will focus on answering these key business questions:
 
-**1️. Sales Performance Analysis**
+**1. Sales Performance Analysis**
 
 - Which products generate the most revenue?
 - Which countries contribute the highest revenue?
@@ -273,34 +273,12 @@ WHERE Description NOT IN ('Miscellaneous', 'Damaged Item', 'E-commerce Issue, 'S
 ```
 This query returned 534, 168 rows. 
 
-
-2. Standardizing and Formatting Descriptions
-To ensure consistency in the dataset, descriptions were standardized by:
-
-- Removing extra spaces at the beginning and end of each description
-- Converting all descriptions to uppercase for uniform formatting across records.
+6. Standardizing and Formatting Descriptions
+To ensure consistency in the dataset, all descriptions were converted to uppercase. Since most relevant descriptions were already in uppercase, this step ensured uniform formatting across all records.
 
 ```sql
-UPDATE Ecommerce 
-SET Description = UPPER(LTRIM(RTRIM(Description)));
-```
-
-3. Replacing Vague or Irrelevant Descriptions
-Certain descriptions related to damaged items, test entries, unclear values, and system-generated placeholders were identified and replaced with 'UNKNOWN' for clarity. Examples include 'LOST', 'DAMAGED STOCK', 'TEST', 'AMAZON ADJUSTMENT', and similar terms
-
-```sql
-UPDATE Ecommerce  
-SET Description = 'UNKNOWN'  
-WHERE Description IN (  
-    'MIXED UP', 'AMAZON ADJUSTMENT', 'MIA', 'AMAZON ADJUST', 'LOST', 'CRUSHED',  
-    'TEST', 'CHECK', 'SOLD AS SET ON DOTCOM AND AMAZON', 'COUNTED', 'CRACKED',  
-    'WATER DAMAGED', 'ADJUST', 'WET DAMAGED', 'FAULTY', 'RETURNED', 'DOTCOM',  
-    'DAMAGED STOCK', 'BREAKAGES', 'BROKEN', 'AMAZON FEE', 'SAMPLES', 'SOLD AS 1',  
-    'DAGAMED', 'DAMAGES', 'LOST IN SPACE', 'WET', 'DISCOUNT', 'CARRIAGE',  
-    'AMAZON SOLD SETS', 'POSTAGE', 'SHOWROOM', 'MOULDY', 'EBAY', 'AMAZON',  
-    'FOUND BOX', 'AMAZON SALES', 'WET RUSTY', 'DAMAGED', 'MISSING', '20713',  
-    'FBA', 'MAILOUT', 'MANUAL', 'WET/RUSTY', 'SMASHED', 'DISPLAY', 'FOUND'  
-);
+UPDATE Ecommerce
+SET Description = UPPER(Description);
 ```
 
 **c) Country**
