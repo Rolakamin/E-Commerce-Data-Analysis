@@ -58,6 +58,10 @@ To access the dataset, click [**here**](https://github.com/Rolakamin/E-Commerce-
   
 For this analysis, InvoiceNo was not unique, that is, InvoiceNo was not treated as a unique identifier because each InvoiceNo represents multiple transactions(multiple rows can belong to the same transaction). To resolve this, a TransactionID column was created to serve as the primary key.
 
+Below is a screenshot of the e-commerce dataset queried in SQL Server after adding the `TransactionID` column:
+
+![Screenshot of E-Commerce Data in SQL Server](path/to/your/image.png)
+
 ## Data Cleaning
 
 Since the dataset contains errors, inconsistencies, and missing values, data cleaning techniques were applied using SQL to ensure accuracy.
