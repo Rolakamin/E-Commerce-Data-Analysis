@@ -200,12 +200,23 @@ WHERE CustomerID IS NULL;
 The Description column contained missing, invalid, or unclear values, such as '???', '?', 'Blanks', and NULL values. Additionally, there were inconsistent formatting issues, extra spaces, and vague descriptions that needed to be addressed to ensure data consistency and improve the accuracy of analysis.
 
 1. Identifying and Handling Missing or Placeholder Values
+   
 To detect missing or placeholder descriptions, a query was executed to identify values such as '???', '?', 'Blanks', and NULL entries. These were replaced with 'UNKNOWN' to maintain uniformity and avoid ambiguity.
+
+```sql
+SELECT DISTINCT Description 
+FROM Ecommerce 
+WHERE Description IS NULL 
+   OR Description LIKE '%?%' 
+   OR Description = 'Blanks';
+```
 
 ```sql
 UPDATE Ecommerce 
 SET Description = 'UNKNOWN' 
-WHERE Description LIKE '%?%' OR Description = 'Blanks' OR Description IS NULL;
+WHERE Description IS NULL 
+   OR Description LIKE '%?%' 
+   OR Description = 'Blanks';
 ```
 
 2. Standardizing and Formatting Descriptions
