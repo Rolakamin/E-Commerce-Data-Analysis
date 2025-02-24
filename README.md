@@ -60,7 +60,7 @@ For this analysis, InvoiceNo was not unique, that is, InvoiceNo was not treated 
 
 Below is a screenshot of the e-commerce dataset queried in SQL Server after adding the `TransactionID` column:
 
-![Screenshot of E-Commerce Data in SQL Server](path/to/your/image.png)
+![Screenshot of E-Commerce Data in SQL Server](https://github.com/Rolakamin/E-Commerce-Data-Analysis/blob/main/E-commerce%20Sample%20Data.png)
 
 ## Data Cleaning
 
