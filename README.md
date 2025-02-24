@@ -241,6 +241,38 @@ GROUP BY Description
 ORDER BY COUNT(*) DESC;
 ```
 
+This query helped to identify frequent but unclear descriptions which were categorized as irrelevant:
+
+- Miscellaneous
+- Damaged Item
+- E-commerce Issue
+- Stock Adjustment
+- Returned Item
+- Adjust bad debt
+
+ 4. Validating the Categorized Descriptions
+ After grouping these irrelevant descriptions, their total counts were verified to confirm their significance.
+
+```sql
+--Query to Count Occurrences of Unwanted Descriptions
+SELECT Description, COUNT(*) 
+FROM Ecommerce
+WHERE Description IN ('Miscellaneous', 'Damaged Item', 'E-commerce Issue', 
+                      'Stock Adjustment', 'Returned Item', 'Adjust bad debt')
+GROUP BY Description;
+```
+
+5. Filtering Out Unwanted Descriptions
+   
+```sql
+-- Query to Exclude Unwanted Descriptions
+SELECT * 
+FROM Ecommerce
+WHERE Description NOT IN ('Miscellaneous', 'Damaged Item', 'E-commerce Issue, 'Stock Adjustment', 'Returned Item', 'Adjust bad debt');
+```
+This query returned 534, 168 rows. 
+
+
 2. Standardizing and Formatting Descriptions
 To ensure consistency in the dataset, descriptions were standardized by:
 
