@@ -274,6 +274,7 @@ WHERE Description NOT IN ('Miscellaneous', 'Damaged Item', 'E-commerce Issue, 'S
 This query returned 534, 168 rows. 
 
 6. Standardizing and Formatting Descriptions
+   
 To ensure consistency in the dataset, all descriptions were converted to uppercase. Since most relevant descriptions were already in uppercase, this step ensured uniform formatting across all records.
 
 ```sql
