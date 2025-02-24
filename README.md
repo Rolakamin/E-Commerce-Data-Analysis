@@ -182,11 +182,11 @@ WHERE CustomerID IS NULL;
 ```
 
 **Result:**
-- Missing CustomerID Count (After Removing Duplicates): 134,542
+- Missing CustomerID Count (After Removing Duplicates): 135, 037
   
 **Interpretation:**
 
-134,542 rows had missing CustomerID values. This could be due to transactions where customers did not provide an ID, incomplete records, or data entry errors.
+135, 037 rows had missing CustomerID values. This could be due to transactions where customers did not provide an ID, incomplete records, or data entry errors.
 
 To ensure accurate customer-based analysis, these missing values were replaced with 'Unknown' using the following query:
 
