@@ -440,7 +440,8 @@ ORDER BY PurchaseFrequency DESC;
 ```
 
 7. How can we categorize customers based on their spending levels?
-
+   
+```sql 
 SELECT 
     CustomerID, 
     SUM(Quantity * UnitPrice) AS TotalSpending,
@@ -453,6 +454,7 @@ FROM Ecommerce
 WHERE CustomerID <> 'Unknown'
 GROUP BY CustomerID
 ORDER BY TotalSpending DESC;
+```
 
 
 
