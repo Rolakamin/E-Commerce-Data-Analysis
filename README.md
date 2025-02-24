@@ -130,8 +130,8 @@ WHERE RowNumber > 1;
 **Results**
 
 - Initial Row Count: 541,909
-- Duplicate Rows Removed: 10,686
-- Final Row Count After Removing Duplicates: 531,223
+- Duplicate Rows Removed: 5,268
+- Final Row Count After Removing Duplicates: 536,641
 
   
 **Verification**
@@ -157,7 +157,7 @@ HAVING COUNT(*) > 1;
 
 **Observations**
 
-The dataset was successfully cleaned by removing all duplicate rows, reducing the total row count from 541,909 to 531,223.
+The dataset was successfully cleaned by removing all duplicate rows, reducing the total row count from 541,909 to 536,641.
 
 This step ensures that the dataset is now free of redundancy and ready for further analysis.
 
