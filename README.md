@@ -355,6 +355,7 @@ AND InvoiceNo NOT LIKE 'C%';
 ```
 
 **Findings:**
+
 The **1,336** rows likely represented **stock adjustments**, **damaged items**, and other **discrepancies**.
 
 **Creating a Backup for Returned Transactions**
@@ -397,6 +398,7 @@ WHERE Quantity < 0;
 To understand these records, the Description column was examined.
 
 **Findings:**
+
 Most of these records had the following descriptions:
 
 - Miscellaneous
