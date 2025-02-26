@@ -306,30 +306,149 @@ WHERE Country = 'Unspecified';
 
 Inconsistent data can arise from errors in data collection or entry. In this dataset, negative values were found in the Quantity and UnitPrice columns, which indicated incorrect records.
 
-**Approach:**
+**Cleaning Negative Values in the Quantity Column**
 
-- Negative quantities were replaced with zero to ensure accurate calculations.
-- Negative unit prices were also replaced with zero, as prices should always be positive.
-  
-**Queries and Updates:**
+The goal of this process was to investigate and handle negative values in the Quantity column. Negative quantities often indicate returns, stock adjustments, or errors. This data was systematically analyzed and cleaned to ensure data integrity.
 
-**1. Replacing Negative Quantities with Zero**
-  
+**Identifying Negative Quantities**
+
+The records that contained negative quantities were checked. 
+
 ```sql
-UPDATE Ecommerce
-SET Quantity = 0
-WHERE Quantity < 0;
-```
-
-**Verification:**
-To confirm that all negative values were corrected:
-
- ```sql
-SELECT * 
+SELECT COUNT(*)
 FROM Ecommerce
 WHERE Quantity < 0;
 ```
-**Result: 0 rows** (indicating all negative quantities were successfully updated).
+**Initial Findings:**
+**10,587** rows had negative values in the Quantity column
+
+To further understand these records, the first 10 rows were retrieved.
+
+```sql
+SELECT TOP 10 * 
+FROM Ecommerce
+WHERE Quantity < 0;
+```
+
+**Investigating Negative Quantity Patterns**
+
+Furthermore, InvoiceNo column was checked to analyze whether negative quantities were associated with returns or other transaction types.
+
+```sql
+SELECT * 
+FROM Ecommerce 
+WHERE InvoiceNo LIKE '%C%';
+```
+
+**Findings:**
+
+- **9,251** rows had InvoiceNo values containing the letter **'C'**, suggesting these were canceled transactions or returns.
+- However, 1,336 rows had negative quantities but did not have 'C%' in InvoiceNo.
+
+To isolate these non-return-related records:
+
+```sql
+SELECT * 
+FROM Ecommerce 
+WHERE Quantity < 0 
+AND InvoiceNo NOT LIKE 'C%';
+```
+
+**Findings:**
+The **1,336** rows likely represented **stock adjustments**, **damaged items**, and other **discrepancies**.
+
+**Creating a Backup for Returned Transactions**
+
+Before deletion, all transactions with negative quantities and an InvoiceNo starting with 'C' (returns) were backed up.
+
+```sql
+SELECT * INTO Ecommerce_Returns 
+FROM Ecommerce 
+WHERE InvoiceNo LIKE 'C%';
+```
+
+**Deleting Returns from the Main Table**
+
+After saving the backup,transactions from the main Ecommerce table were removed.
+
+```sql
+DELETE FROM Ecommerce 
+WHERE InvoiceNo LIKE 'C%';
+```
+
+**Results:**
+
+**9,251** rows were deleted from the main table.
+
+**Investigating Remaining Negative Quantities**
+
+After removing returns, the records were checked to know if there was still negative quantities or not. 
+
+```sql
+SELECT COUNT(*)
+FROM Ecommerce
+WHERE Quantity < 0;
+```
+
+ **Findings:**
+
+1,336 rows still had negative quantities.
+
+To understand these records, the Description column was examined.
+
+**Findings:**
+Most of these records had the following descriptions:
+
+- Miscellaneous
+- E-commerce Issue
+- Damaged Item
+- Stock Adjustment 
+- Returned Item
+- Adjust Bad Debt
+- 
+Since these descriptions were grouped as **irrelevant**, they were targeted for deletion.
+
+**Deleting Irrelevant Descriptions**
+
+To remove records with negative quantities belonging to these irrelevant categories, this query was executed:
+
+```sql
+DELETE FROM Ecommerce 
+WHERE Quantity < 0 
+AND Description IN ('Miscellaneous', 'E-commerce Issue', 'Damaged Item', 'Stock Adjustment', 'Returned Item', 'Adjust bad debt');
+```
+
+**Results:**
+
+**1,324** rows were deleted.
+
+To confirm only necessary records remained, the query below was executed again.
+
+```sql
+SELECT COUNT(*)
+FROM Ecommerce
+WHERE Quantity < 0;
+```
+
+**Final Result:**
+
+0 rows had negative quantities, meaning the column was successfully cleaned.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 **2. Replacing Negative Unit Prices with Zero**
  
