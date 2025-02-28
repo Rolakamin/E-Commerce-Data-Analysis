@@ -436,40 +436,77 @@ WHERE Quantity < 0;
 
 0 rows had negative quantities, meaning the column was successfully cleaned.
 
+**Handling Negative Values in the UnitPrice Column**
 
+Negative values in UnitPrice were checked.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-**2. Replacing Negative Unit Prices with Zero**
- 
 ```sql
-UPDATE Ecommerce
-SET UnitPrice = 0
-WHERE UnitPrice < 0;
-```
-
-**Verification:**
-
-To ensure that no negative unit prices remain:
-
- ```sql
 SELECT * 
-FROM Ecommerce
+FROM Ecommerce 
 WHERE UnitPrice < 0;
 ```
-**Result: 0 rows** (confirming all negative unit prices were successfully updated).
+
+**Findings:**
+
+There were **2 records** with **UnitPrice** = -11062.06.
+The Description was **"Adjust bad debt"**, which suggests an accounting adjustment rather than an actual product sale.
+The CustomerID was marked as "Unknown", reinforcing that these are not standard transactions.
+
+Investigating the Frequency of **"Adjust bad debt"**, that is , to check if other transactions had this description
+
+```sql
+SELECT COUNT(*) 
+FROM Ecommerce 
+WHERE Description = 'Adjust bad debt';
+```
+
+**3 Records had this Description**
+
+Before making any changes, the affected rows were backed up  into a separate table. This allows a record of these adjustments to be retained in case they are needed later.
+
+```sql
+SELECT * INTO Ecommerce_BadDebt
+FROM Ecommerce
+WHERE Description = 'Adjust bad debt';
+```
+
+
+**To cross-check Ecommerce_BadDebt**
+
+```sql
+SELECT * FROM Ecommerce_BadDebt;
+```
+
+One record had a positive UnitPrice while the other two records showed negative UnitPrices.
+
+Since these are not actual sales but financial adjustments, they should be removed from sales analyis.
+
+```sql
+DELETE FROM Ecommerce
+WHERE Description = 'Adjust bad debt';
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Data Analysis & SQL Queries
 
