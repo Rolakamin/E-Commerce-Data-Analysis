@@ -438,7 +438,7 @@ WHERE Quantity < 0;
 
 **Handling Negative Values in the UnitPrice Column**
 
-Negative values in UnitPrice were checked.
+**Step 1: Identifying Negative Unit Prices**
 
 ```sql
 SELECT * 
@@ -448,11 +448,11 @@ WHERE UnitPrice < 0;
 
 **Findings:**
 
-There were **2 records** with **UnitPrice** = -11062.06.
-The Description was **"Adjust bad debt"**, which suggests an accounting adjustment rather than an actual product sale.
-The CustomerID was marked as "Unknown", reinforcing that these are not standard transactions.
+-**2 records** had a UnitPrice of **-11062.06.**
+-The **Description** for these transactions was **"Adjust bad debt"**, suggesting they were accounting adjustments rather than actual product sales.
+-The **CustomerID** was marked as **"Unknown"**, further indicating that these were not standard customer transactions.
 
-Investigating the Frequency of **"Adjust bad debt"**, that is , to check if other transactions had this description
+**Step 2: Investigating the Frequency of "Adjust bad debt"**
 
 ```sql
 SELECT COUNT(*) 
@@ -460,7 +460,11 @@ FROM Ecommerce
 WHERE Description = 'Adjust bad debt';
 ```
 
-**3 Records had this Description**
+**Findings:**
+
+**3 records** had the Description **"Adjust bad debt"** in total.
+
+**Step 3: Backing Up Affected Records**
 
 Before making any changes, the affected rows were backed up  into a separate table. This allows a record of these adjustments to be retained in case they are needed later.
 
@@ -470,21 +474,29 @@ FROM Ecommerce
 WHERE Description = 'Adjust bad debt';
 ```
 
-
-**To cross-check Ecommerce_BadDebt**
+**Step 4: Cross-Checking the Backup Table**
 
 ```sql
 SELECT * FROM Ecommerce_BadDebt;
 ```
 
-One record had a positive UnitPrice while the other two records showed negative UnitPrices.
+**Findings:**
 
-Since these are not actual sales but financial adjustments, they should be removed from sales analyis.
+**1 record** had a **positive UnitPrice (11062.06).**
+**2 records** had **negative UnitPrice values (-11062.06 each).**
+
+This confirms that the negative values were likely adjustments reversing the original transaction, that is, the negative values were not actual refunds or sales—they were adjustments to remove or correct an earlier transaction, ensuring accurate financial reporting.
+
+**Step 5: Removing "Adjust Bad Debt" Entries from the Sales Data**
+
+Since these records represent financial adjustments rather than actual sales, they should be removed from sales analysis to prevent distortions in revenue calculations.
 
 ```sql
 DELETE FROM Ecommerce
 WHERE Description = 'Adjust bad debt';
 ```
+
+
 
 
 
