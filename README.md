@@ -279,7 +279,7 @@ To ensure consistency in the dataset, all descriptions were converted to upperca
 
 ```sql
 UPDATE Ecommerce
-SET Description = UPPER(Description);
+SET Description = UPPER(TRIM(Description));
 ```
 
 **c) Country**
@@ -496,35 +496,52 @@ DELETE FROM Ecommerce
 WHERE Description = 'Adjust bad debt';
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Data Analysis & SQL Queries
 
 ### Sales Performance Analysis
 
 **Objective:** This analysis aims to understand how products are selling across different countries and customers based on transactional data.
+
+1. Which products generate the most revenue?
+   
+```sql
+  SELECT TOP 10 
+    Description, 
+    ROUND(SUM(UnitPrice * Quantity), 2) AS TotalRevenue
+FROM Ecommerce
+GROUP BY Description
+ORDER BY TotalRevenue DESC;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 1. Total Sales by Product
    
