@@ -500,7 +500,7 @@ WHERE Description = 'Adjust bad debt';
 
 ### Sales Performance Analysis
 
-**Objective:** This analysis aims to understand how products are selling across different countries and customers based on transactional data.
+**Objective:** Objective: This analysis evaluates revenue contributions from products, countries, and customer transactions to identify key sales trends and performance drivers.
 
 1. Which products generate the most revenue?
    
@@ -513,135 +513,54 @@ GROUP BY Description
 ORDER BY TotalRevenue DESC;
 ```
 
+2. Which countries contribute the highest revenue?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1. Total Sales by Product
-   
 ```sql
-SELECT 
-    StockCode, 
-    Description, 
-    SUM(Quantity * UnitPrice) AS TotalSales
-FROM Ecommerce
-GROUP BY StockCode, Description
-ORDER BY TotalSales DESC;
-```
-
-2. Total Revenue by Country
-   
-```sql
-SELECT 
+SELECT TOP 10 
     Country, 
-    SUM(Quantity * UnitPrice) AS TotalRevenue
+    ROUND(SUM(UnitPrice * Quantity), 2) AS TotalRevenue
 FROM Ecommerce
 GROUP BY Country
 ORDER BY TotalRevenue DESC;
 ```
 
-3. Average Order Value (AOV)
-   
- ```sql  
+3. What is the average order value (AOV)?
+
+```sql
 SELECT 
-    CustomerID, 
-    COUNT(DISTINCT InvoiceNo) AS TotalOrders,
-    SUM(Quantity * UnitPrice) AS TotalSpending,
-    SUM(Quantity * UnitPrice) / COUNT(DISTINCT InvoiceNo) AS AvgOrderValue
+    SUM(UnitPrice * Quantity) / COUNT(DISTINCT InvoiceNo) AS AverageOrderValue
 FROM Ecommerce
-WHERE CustomerID <> 'Unknown'
-GROUP BY CustomerID
-ORDER BY AvgOrderValue DESC;
-```
-**Customer 16446 had the highest Average Order Value (AOV) in the dataset, meaning they spent significantly more per order than any other customer**
+WHERE Quantity > 0;
+```  
 
-### Customer Segmentation
 
-**Objective:** Identify and analyze customer purchasing behavior to classify customers based on their total spending, purchase frequency, and overall value to the business.
 
-4. Which customers have the highest total spending?
-   
-```sql 
-SELECT 
-    CustomerID, 
-    SUM(Quantity * UnitPrice) AS TotalSpending
-FROM Ecommerce
-WHERE CustomerID <> 'Unknown'
-GROUP BY CustomerID
-ORDER BY TotalSpending DESC;
-```
 
-5. Who are the top 5 highest-spending customers?
 
-```sql 
-WITH CustomerRevenue AS (
-    SELECT 
-        CustomerID, 
-        SUM(Quantity * UnitPrice) AS TotalRevenue,
-        RANK() OVER (ORDER BY SUM(Quantity * UnitPrice) DESC) AS Rank
-    FROM Ecommerce
-    WHERE CustomerID <> 'Unknown'
-    GROUP BY CustomerID
-)
-SELECT *
-FROM CustomerRevenue
-WHERE Rank <= 5;
-```
 
-6. Which customers make purchases most frequently?
 
-```sql 
-SELECT 
-    CustomerID, 
-    COUNT(DISTINCT InvoiceNo) AS PurchaseFrequency
-FROM Ecommerce
-WHERE CustomerID <> 'Unknown'
-GROUP BY CustomerID
-ORDER BY PurchaseFrequency DESC;
-```
 
-7. How can we categorize customers based on their spending levels?
-   
-```sql 
-SELECT 
-    CustomerID, 
-    SUM(Quantity * UnitPrice) AS TotalSpending,
-    CASE 
-        WHEN SUM(Quantity * UnitPrice) > 10000 THEN 'High-Value Customer'
-        WHEN SUM(Quantity * UnitPrice) BETWEEN 1000 AND 10000 THEN 'Medium Spender'
-        ELSE 'Low-Value Customer'
-    END AS CustomerSegment
-FROM Ecommerce
-WHERE CustomerID <> 'Unknown'
-GROUP BY CustomerID
-ORDER BY TotalSpending DESC;
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
