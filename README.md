@@ -531,7 +531,20 @@ SELECT
     SUM(UnitPrice * Quantity) / COUNT(DISTINCT InvoiceNo) AS AverageOrderValue
 FROM Ecommerce
 WHERE Quantity > 0;
-```  
+```
+
+**Key Findings:**
+
+- The top-selling product was "DOTCOM POSTAGE", generating $206,248.77 in total revenue.Other high-revenue products included "REGENCY CAKESTAND 3 TIER" ($174,156.54) and "PAPER CRAFT, LITTLE BIRDIE" ($168,469.60)
+- The United Kingdom generated the highest revenue, totaling $8,979,619.97.Other top contributors were Netherlands ($285,446.34), Ireland (EIRE) ($283,140.52), and Germany ($228,678.40).
+- On average, each order generated $512.35 in revenue.
+
+**Recommendations**
+
+- **Boost Marketing for Best-Selling Products** – Invest in targeted promotions and advertisements to further increase sales of top-performing products.
+- **Strengthen Sales Strategies in Top Markets** – Focus on enhancing customer engagement and retention in high-revenue countries while identifying potential opportunities in lower-performing regions.
+- **Encourage Larger Purchases** – Introduce bulk discounts, bundle deals, or loyalty programs to incentivize customers to buy more per order.
+
 
 
 
