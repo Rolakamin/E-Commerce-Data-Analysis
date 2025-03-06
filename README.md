@@ -4,8 +4,7 @@ A comprehensive project to clean and analyze E-commerce transactional data using
 ## Project Overview
 
 ### Objectives
-
-The goal of this project is to analyze an E-commerce dataset to uncover insights related to sales performance, customer behavior, and product profitability. This will help improve business decision-making in areas such as inventory management, marketing strategies, and customer segmentation.
+The goal of this project is to perform Exploratory Data Analysis (EDA) on an E-commerce dataset to uncover insights related to sales performance, customer behavior, and product profitability. Through data cleaning and analysis using SQL (Microsoft SQL Server Management Studio - SSMS), this project aims to support business decision-making in areas such as inventory management, marketing strategies, and customer segmentation.
 
 ## Business Problems & Key Questions
 
@@ -544,6 +543,23 @@ WHERE Quantity > 0;
 - **Boost Marketing for Best-Selling Products** – Invest in targeted promotions and advertisements to further increase sales of top-performing products.
 - **Strengthen Sales Strategies in Top Markets** – Focus on enhancing customer engagement and retention in high-revenue countries while identifying potential opportunities in lower-performing regions.
 - **Encourage Larger Purchases** – Introduce bulk discounts, bundle deals, or loyalty programs to incentivize customers to buy more per order.
+
+### Customer Segmentation
+
+**Objective:** To identify high-value customers, analyze purchase frequency, and group customers based on spending patterns for better marketing and retention strategies.
+
+1. Which customers have the highest total spending?
+   
+```sql
+SELECT TOP 10 
+    CustomerID, 
+    ROUND(SUM(UnitPrice * Quantity), 2) AS TotalSpending
+FROM Ecommerce
+WHERE CustomerID <> 'Unknown'
+GROUP BY CustomerID
+ORDER BY TotalSpending DESC;
+```
+   
 
 
 
