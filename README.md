@@ -19,7 +19,6 @@ To achieve the above objective, the analysis will focus on answering these key b
 **2. Customer Segmentation**
 
 - Which customers have the highest total spending? 
-- Who are the top 5 highest-spending customers? 
 - Which customers make purchases most frequently? 
 - How can we categorize customers based on their spending levels?
 
@@ -559,6 +558,21 @@ WHERE CustomerID <> 'Unknown'
 GROUP BY CustomerID
 ORDER BY TotalSpending DESC;
 ```
+
+2.  Which customers make purchases most frequently?
+
+```sql
+SELECT TOP 10 
+    CustomerID, 
+    COUNT(DISTINCT InvoiceNo) AS PurchaseFrequency
+FROM Ecommerce
+WHERE CustomerID <> 'Unknown'
+GROUP BY CustomerID
+ORDER BY PurchaseFrequency DESC;
+```
+
+3.  How can we categorize customers based on their spending levels?
+   
    
 
 
