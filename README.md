@@ -631,6 +631,13 @@ GROUP BY SpendingCategory
 ORDER BY CustomerCount DESC;
 ```
 
+**Output**
+
+**SpendingCategory**	 **CustomerCount**
+  Low-Spender	             2169
+  Mid-Spender	             1736
+  High-Spender	           434
+
 
 
 
