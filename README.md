@@ -596,6 +596,45 @@ FROM SpendingData S
 ORDER BY S.TotalSpending DESC;
 ```
 
+**Note:**
+- Customers in the top 10% are classified as High-Spenders.
+- Customers between the 50th and 90th percentile are Mid-Spenders.
+- Customers below the 50th percentile are Low-Spenders.
+
+Getting the **CustomerCount** for each **SpendingCategory**
+
+```sql
+WITH SpendingData AS (
+    SELECT 
+        CustomerID,
+        SUM(UnitPrice * Quantity) AS TotalSpending
+    FROM Ecommerce
+    WHERE CustomerID <> 'Unknown'
+    GROUP BY CustomerID
+),
+CategorizedSpending AS (
+    SELECT 
+        S.CustomerID,
+        S.TotalSpending,
+        CASE 
+            WHEN S.TotalSpending >= PERCENTILE_CONT(0.90) WITHIN GROUP (ORDER BY S.TotalSpending) OVER () 
+                THEN 'High-Spender'
+            WHEN S.TotalSpending >= PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY S.TotalSpending) OVER () 
+                THEN 'Mid-Spender'
+            ELSE 'Low-Spender'
+        END AS SpendingCategory
+    FROM SpendingData S
+)
+SELECT SpendingCategory, COUNT(*) AS CustomerCount
+FROM CategorizedSpending
+GROUP BY SpendingCategory
+ORDER BY CustomerCount DESC;
+```
+
+
+
+
+
    
    
 
