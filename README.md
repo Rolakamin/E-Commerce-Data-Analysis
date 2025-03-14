@@ -573,6 +573,30 @@ ORDER BY PurchaseFrequency DESC;
 
 3.  How can we categorize customers based on their spending levels?
    
+```sql
+WITH SpendingData AS (
+SELECT 
+   CustomerID,
+   SUM(UnitPrice * Quantity) AS TotalSpending
+FROM Ecommerce
+WHERE CustomerID <> 'Unknown'
+GROUP BY CustomerID
+)
+SELECT 
+    S.CustomerID,
+    S.TotalSpending,
+    CASE 
+        WHEN S.TotalSpending >= PERCENTILE_CONT(0.90) WITHIN GROUP (ORDER BY S.TotalSpending) OVER () 
+            THEN 'High-Spender'
+        WHEN S.TotalSpending >= PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY S.TotalSpending) OVER () 
+            THEN 'Mid-Spender'
+        ELSE 'Low-Spender'
+    END AS SpendingCategory
+FROM SpendingData S
+ORDER BY S.TotalSpending DESC;
+```
+
+   
    
 
 
