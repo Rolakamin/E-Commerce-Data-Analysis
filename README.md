@@ -633,7 +633,7 @@ ORDER BY CustomerCount DESC;
 
 **Output**
 
-![Screenshot of SpendingCategory_CustomerCount](https://github.com/Rolakamin/E-Commerce-Data-Analysis/blob/main/E-commerce%20Sample%20Data.png)
+![Screenshot of SpendingCategory_CustomerCount](https://github.com/Rolakamin/E-Commerce-Data-Analysis/blob/main/SpendingCategory_CustomerCount.png)
 
 
 
