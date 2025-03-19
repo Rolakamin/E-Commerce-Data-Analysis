@@ -635,9 +635,23 @@ ORDER BY CustomerCount DESC;
 
 ![Screenshot of SpendingCategory_CustomerCount](https://github.com/Rolakamin/E-Commerce-Data-Analysis/blob/main/SpendingCategory_CustomerCount.png)
 
+**Key Findings:**
 
+1. **High-Spending Customers:**
 
+The top 10 customers accounted for a significant portion of revenue, with the highest spender (CustomerID 14646) generating $280,206.02.
+CustomerID 14911 appeared in both the Top 10 Spenders and Most Frequent Buyers, indicating they were a loyal and high-value customer.
 
+2. **Purchase Frequency:**
+
+CustomerID 12748 made the most purchases (210) but did not rank among the highest spenders, suggesting they bought frequently but at a lower value.
+Some customers bought frequently but did not spend much, showing a need to encourage higher spending through targeted strategies.
+
+3. **Customer Segmentation:**
+
+Low-Spenders formed the largest group, representing 49.9% (2169 customers).
+Mid-Spenders accounted for 40% (1736 customers).
+Only 10% (434 customers) were High-Spenders, contributing the largest share of total revenue.
 
 
    
