@@ -653,6 +653,15 @@ Low-Spenders formed the largest group, representing 49.9% (2169 customers).
 Mid-Spenders accounted for 40% (1736 customers).
 Only 10% (434 customers) were High-Spenders, contributing the largest share of total revenue.
 
+**Recommendations:**
+
+- Offer exclusive loyalty programs like special discounts and early access to retain high-spenders.
+- Use personalized marketing to suggest products based on high-spenders' buying habits.
+- Encourage mid-spenders to spend more through tiered discounts (e.g., "Spend $500, Get 10% Off") and bundled offers.
+- Boost spending from low-spenders with first-time discounts, free shipping, and personalized email campaigns.
+- Convert frequent buyers to high-spenders by offering subscriptions, recurring purchase incentives, and special deals.
+- Regularly update customer categories and adjust segmentation to track spending changes and target marketing effectively.
+
 
    
    
