@@ -25,7 +25,7 @@ To achieve the above objective, the analysis will focus on answering these key b
 **3. Product Performance Analysis**
 
 - What are the best-selling products?
-- Which products are the most profitable?
+
 - What are the top 5 most expensive products?
 
  **4. Time Series Analysis**
@@ -661,6 +661,45 @@ Only 10% (434 customers) were High-Spenders, contributing the largest share of t
 - Boost spending from low-spenders with first-time discounts, free shipping, and personalized email campaigns.
 - Convert frequent buyers to high-spenders by offering subscriptions, recurring purchase incentives, and special deals.
 - Regularly update customer categories and adjust segmentation to track spending changes and target marketing effectively.
+
+  ### Product Performance Analysis
+
+  **Objective:** To identify the best-selling, most profitable, and most expensive products, providing insights to optimize inventory management, improve marketing strategies, and maximize revenue and profit.
+
+  1. What are the best-selling products?
+ 
+  ```sql
+SELECT TOP 10 
+    StockCode, 
+    Description, 
+    SUM(Quantity) AS TotalQuantitySold
+FROM Ecommerce
+GROUP BY StockCode, Description
+ORDER BY TotalQuantitySold DESC;
+```
+
+2
+
+3. What are the top 5 most expensive products?
+
+```sql
+SELECT TOP 5 
+    StockCode, 
+    Description, 
+    UnitPrice
+FROM Ecommerce
+ORDER BY UnitPrice DESC;
+```
+   
+
+
+
+
+ 
+  
+
+  
+
 
 
    
