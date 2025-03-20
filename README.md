@@ -25,7 +25,7 @@ To achieve the above objective, the analysis will focus on answering these key b
 **3. Product Performance Analysis**
 
 - What are the best-selling products?
-
+- Which products are frequently purchased together
 - What are the top 5 most expensive products?
 
  **4. Time Series Analysis**
@@ -664,7 +664,8 @@ Only 10% (434 customers) were High-Spenders, contributing the largest share of t
 
   ### Product Performance Analysis
 
-  **Objective:** To identify the best-selling, most profitable, and most expensive products, providing insights to optimize inventory management, improve marketing strategies, and maximize revenue and profit.
+  **Objective:** To identify the best-selling, frequently paired, and most expensive products, providing insights to optimize inventory management, enhance marketing strategies, and improve cross-selling 
+                 opportunities.
 
   1. What are the best-selling products?
  
@@ -678,7 +679,20 @@ GROUP BY StockCode, Description
 ORDER BY TotalQuantitySold DESC;
 ```
 
-2
+2. Which products are frequently purchased together
+
+```sql
+SELECT TOP 10
+    A.StockCode AS Product1,
+    B.StockCode AS Product2,
+    COUNT(*) AS Frequency
+FROM Ecommerce A
+JOIN Ecommerce B 
+    ON A.InvoiceNo = B.InvoiceNo 
+    AND A.StockCode < B.StockCode
+GROUP BY A.StockCode, B.StockCode
+ORDER BY Frequency DESC;
+```
 
 3. What are the top 5 most expensive products?
 
