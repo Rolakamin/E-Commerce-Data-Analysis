@@ -663,8 +663,8 @@ Only 10% (434 customers) were High-Spenders, contributing the largest share of t
 
   ### Product Performance Analysis
 
-  **Objective:** To identify the best-selling, frequently paired, and most expensive products, providing insights to optimize inventory management, enhance marketing strategies, and improve cross-selling 
-                 opportunities.
+  **Objective:** To identify the best-selling products and commonly purchased product pairs, providing insights to optimize inventory management, improve marketing strategies, and increase cross-selling 
+                 opportunities
 
  1. What are the best-selling products?
  
