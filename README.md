@@ -26,7 +26,6 @@ To achieve the above objective, the analysis will focus on answering these key b
 
 - What are the best-selling products?
 - Which products are frequently purchased together
-- What are the top 5 most expensive products?
 
  **4. Time Series Analysis**
 
@@ -679,7 +678,7 @@ GROUP BY StockCode, Description
 ORDER BY TotalQuantitySold DESC;
 ```
 
-2. Which products are frequently purchased together
+2. Which products are frequently purchased together?
 
 ```sql
 SELECT TOP 10
@@ -704,6 +703,23 @@ SELECT TOP 5
 FROM Ecommerce
 ORDER BY UnitPrice DESC;
 ```
+
+**Key Findings:**
+
+- The best-selling product was "PAPER CRAFT, LITTLE BIRDIE" with **80,995** units sold, followed closely by "MEDIUM CERAMIC TOP STORAGE JAR" with **78,033** units sold.
+- The most frequently purchased product pair was **"22386" and "85099B"** with **859** occurrences, suggesting strong cross-selling potential between these items.  
+
+**Recommendations**
+
+- Ensure the top-selling products like "PAPER CRAFT, LITTLE BIRDIE" and "MEDIUM CERAMIC TOP STORAGE JAR" are consistently in stock to meet customer demand.
+- Introduce bundle offers for the most frequently purchased pairs (e.g., "22386" and "85099B") to encourage bulk purchases and increase average order value.
+- Use the insights from frequently bought-together products to design personalized marketing campaigns that recommend complementary items during the purchasing process.
+
+
+
+
+
+
    
 
 
