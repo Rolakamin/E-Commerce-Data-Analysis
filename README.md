@@ -719,13 +719,54 @@ ORDER BY UnitPrice DESC;
 
 1. How does revenue change over time (monthly, quarterly, yearly)?
 
-
-
+```sql
+SELECT TOP 100
+    YEAR(InvoiceDate) AS Year,
+    MONTH(InvoiceDate) AS Month,
+    DATEPART(QUARTER, InvoiceDate) AS Quarter,
+    SUM(UnitPrice * Quantity) AS TotalRevenue
+FROM Ecommerce
+GROUP BY YEAR(InvoiceDate), MONTH(InvoiceDate), DATEPART(QUARTER, InvoiceDate)
+ORDER BY Year, Month;
+```
 
 2. Which time of day generates the most sales?
-   
+
+```sql
+SELECT 
+    DATEPART(HOUR, InvoiceDate) AS HourOfDay,
+    SUM(UnitPrice * Quantity) AS TotalRevenue
+FROM Ecommerce
+GROUP BY DATEPART(HOUR, InvoiceDate)
+ORDER BY TotalRevenue DESC;
+```
 
 3. What is the month-over-month revenue growth?
+
+```sql
+WITH MonthlyRevenue AS (
+    SELECT 
+        YEAR(InvoiceDate) AS Year,
+        MONTH(InvoiceDate) AS Month,
+        SUM(UnitPrice * Quantity) AS TotalRevenue
+    FROM Ecommerce
+    GROUP BY YEAR(InvoiceDate), MONTH(InvoiceDate)
+)
+SELECT 
+    Year,
+    Month,
+    TotalRevenue,
+    LAG(TotalRevenue) OVER (ORDER BY Year, Month) AS PreviousMonthRevenue,
+    ROUND(
+        CASE 
+            WHEN LAG(TotalRevenue) OVER (ORDER BY Year, Month) = 0 THEN NULL 
+            ELSE ((TotalRevenue - LAG(TotalRevenue) OVER (ORDER BY Year, Month)) * 100.0) / LAG(TotalRevenue) OVER (ORDER BY Year, Month)
+        END, 2
+    ) AS MoM_Growth
+FROM MonthlyRevenue
+ORDER BY Year, Month;
+```
+
  
 
 
