@@ -715,6 +715,20 @@ ORDER BY UnitPrice DESC;
 - Introduce bundle offers for the most frequently purchased pairs (e.g., "22386" and "85099B") to encourage bulk purchases and increase average order value.
 - Use the insights from frequently bought-together products to design personalized marketing campaigns that recommend complementary items during the purchasing process.
 
+  ### Time Series Analysis
+
+1. How does revenue change over time (monthly, quarterly, yearly)?
+
+
+
+
+2. Which time of day generates the most sales?
+   
+
+3. What is the month-over-month revenue growth?
+ 
+
+
 
 
 
