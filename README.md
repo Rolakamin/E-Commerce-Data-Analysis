@@ -667,9 +667,9 @@ Only 10% (434 customers) were High-Spenders, contributing the largest share of t
   **Objective:** To identify the best-selling, frequently paired, and most expensive products, providing insights to optimize inventory management, enhance marketing strategies, and improve cross-selling 
                  opportunities.
 
-  1. What are the best-selling products?
+ 1. What are the best-selling products?
  
-  ```sql
+ ```sql 
 SELECT TOP 10 
     StockCode, 
     Description, 
