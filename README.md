@@ -767,6 +767,24 @@ FROM MonthlyRevenue
 ORDER BY Year, Month;
 ```
 
+**Key Findings:**
+
+- Revenue shows fluctuations over time, with both positive and negative growth. November 2011 recorded the highest revenue, likely due to holiday sales, while December 2011 saw the sharpest decline (-57.59%).
+
+- The prime revenue window is between 10 AM and 3 PM, with 10 AM generating the highest revenue. Sales drop significantly outside business hours, especially early morning (6 AM) and evening (8 PM onward).
+
+- September 2011 had the highest month-over-month (MoM) growth (+43.59%), while December 2011 experienced the steepest decline (-57.59%), indicating seasonal patterns and post-holiday slowdowns.
+
+**Recommendations**
+
+- Optimize marketing efforts during high-revenue months like November and investigate revenue drops in months with sharp declines to identify potential issues (e.g., inventory shortages or reduced customer engagement).
+
+- Focus promotional campaigns during the 10 AM to 3 PM peak hours and consider targeted discounts during low-sales periods to boost off-peak revenue.
+
+- Use MoM tracking to monitor performance shifts, analyze the factors behind strong growth (e.g., September), and apply successful strategies across other periods.
+
+- Implement post-peak engagement strategies like loyalty programs or post-holiday discounts to mitigate sharp revenue declines after peak seasons.
+
  
 
 
